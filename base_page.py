@@ -1,5 +1,4 @@
 from browser import Browser
-from selenium.webdriver.common.by import By
 
 class Base_page(Browser):
 
@@ -14,3 +13,8 @@ class Base_page(Browser):
         actual_error_message = self.chrome.find_element(by, selector).text
         assert actual_error_message == expected_error_message, f'Error, incorrect error message, actual: {actual_error_message}; expected: {expected_error_message}'
 
+    def insert_keyword(self, by, selector, keyword):
+        self.chrome.find_element(by, selector).send_keys(keyword)
+
+    def check_keyword(self, by, selector, keyword):
+        assert keyword in self.chrome.find_element(by, selector).text, 'Error: Keyword does not show up'
